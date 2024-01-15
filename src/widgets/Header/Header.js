@@ -5,7 +5,8 @@ const Container = styled("div")(({ theme }) => ({
   borderRadius: "17px",
   backgroundColor: theme.colors.baseBg,
   padding: "16px 24px",
-  width: "100%"
+  width: "100%",
+  boxSizing: "border-box",
 }));
 
 const FlexContainer = styled(Stack)(() => ({
