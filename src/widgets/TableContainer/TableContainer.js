@@ -1,5 +1,6 @@
 import { Box, styled, useTheme } from "@mui/material";
 import { Title } from "../../entities";
+import { SearchBar } from "../../features";
 
 const Container = styled(Box)(({ theme }) => ({
   borderRadius: 18,
@@ -19,6 +20,7 @@ export const TableContainer = () => {
         }}
       />
       <Title title="Пользователи" />
+      <SearchBar />
     </Container>
   );
 };
