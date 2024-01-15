@@ -2,8 +2,10 @@ import { createTheme } from "@mui/material";
 
 export const theme = createTheme({
   colors: {
-    base: "#0E0C15",
-    grayScale: "#121825",
+    body: "#0E0C15",
+    baseBg: "#121825",
+    grayBorder: "#222B44",
+    grayText: "#616D8D",
   },
   components: {
     MuiTypography: {
@@ -11,6 +13,7 @@ export const theme = createTheme({
         fontFamily: "'IBM Plex Sans', sans-serif",
         boxSizing: "border-box",
         color: "#FFF",
+        fontStyle: "normal",
       },
     },
   },
