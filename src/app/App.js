@@ -1,11 +1,11 @@
 import { ThemeProvider } from "@mui/material";
 import { theme } from "../shared/configs/materialUI";
-import { Header } from "../widgets";
+import { UsersList } from "../pages";
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <Header />
+      <UsersList />
     </ThemeProvider>
   );
 }

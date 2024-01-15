@@ -5,18 +5,25 @@ const Container = styled("div")(({ theme }) => ({
   borderRadius: "17px",
   backgroundColor: theme.colors.baseBg,
   padding: "16px 24px",
+  width: "100%"
+}));
+
+const FlexContainer = styled(Stack)(() => ({
+  flexDirection: "row",
+  alignItems: "center",
+  gap: 44,
 }));
 
 export const Header = () => {
   return (
     <Container>
-      <Stack direction="row" alignItems="center" justifyContent="space-between" gap="44px">
-        <Stack direction="row" alignItems="center" gap={"44px"}>
+      <FlexContainer justifyContent="space-between">
+        <FlexContainer>
           <Logo />
           <CompanyName />
-        </Stack>
+        </FlexContainer>
         <UserInfo />
-      </Stack>
+      </FlexContainer>
     </Container>
   );
 };
