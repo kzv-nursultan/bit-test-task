@@ -52,6 +52,7 @@ const StyledBtn = styled(Button, {
   color: theme.colors.grayTableText,
   "& .MuiButton-endIcon": {
     transform: order === TOKENS_ORDER.asc ? "rotate(180deg)" : "rotate(0)",
+    marginLeft: 10,
   },
 }));
 

@@ -1,6 +1,6 @@
 import { Box, Table, TableBody, styled, useTheme } from "@mui/material";
 import { TableHeader, Title, UsersListRow } from "../../entities";
-import { SearchBar } from "../../features";
+import { SearchBar, TablePagination } from "../../features";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { fetchUsers } from "./api/fetchUsers";
@@ -22,9 +22,9 @@ const tableHeader = ["Email", "Имя", "Роль", "Подписка", "Ток�
 
 export const TableContainer = () => {
   const theme = useTheme();
-  const [page] = useState(1);
   const [search, setSearch] = useState("");
   const [orderBy, setOrderBy] = useState(TOKENS_ORDER.desc);
+  const [page, setPage] = useState(1);
 
   const { data: users } = useQuery({
     queryKey: ["usersList", page, UseDebounce(search), orderBy],
@@ -56,6 +56,11 @@ export const TableContainer = () => {
             ))}
           </TableBody>
         </Table>
+        <TablePagination
+          page={page}
+          setPage={setPage}
+          totalPages={users?.pages || 0}
+        />
       </Box>
     </Container>
   );

@@ -9,7 +9,6 @@ export const fetchUsers = async (page, search, orderBy) => {
       orderBy,
     },
   });
-  console.log(data);
   return data;
 };
 

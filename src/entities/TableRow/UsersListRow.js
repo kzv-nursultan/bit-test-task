@@ -26,7 +26,6 @@ const StyledBtn = styled(IconButton)(() => ({
 
 export const UsersListRow = ({ user }) => {
   const { email, name, role, subscription } = user;
-  console.log(user);
   return (
     <TableRow>
       <StyledTableCell>{email}</StyledTableCell>

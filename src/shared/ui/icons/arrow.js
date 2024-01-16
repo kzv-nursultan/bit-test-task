@@ -1,11 +1,11 @@
-import React from "react";
+import PropTypes from "prop-types";
 
-export const Arrow = () => {
+export const Arrow = ({ width = 19, height = 18 }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="19"
-      height="18"
+      width={width}
+      height={height}
       viewBox="0 0 19 18"
       fill="none"
     >
@@ -17,4 +17,9 @@ export const Arrow = () => {
       />
     </svg>
   );
+};
+
+Arrow.propTypes = {
+  width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 };
