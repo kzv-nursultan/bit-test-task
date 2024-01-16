@@ -1,4 +1,4 @@
-import { Box, Table, styled, useTheme } from "@mui/material";
+import { Box, Table, TableBody, styled, useTheme } from "@mui/material";
 import { TableHeader, Title } from "../../entities";
 import { SearchBar } from "../../features";
 
@@ -25,6 +25,9 @@ export const TableContainer = () => {
       <Box sx={{ padding: "24px 34px" }}>
         <Table aria-label="users list table">
           <TableHeader row={tableHeader} />
+          <TableBody>
+            
+          </TableBody>
         </Table>
       </Box>
     </Container>

@@ -4,38 +4,28 @@ import { styled } from "@mui/material/styles";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import PropTypes from "prop-types";
 
-const borderRadiusValidator = (first, last) => {
-  if (first) {
-    return {
-      borderTopLeftRadius: "8px",
-      borderBottomLeftRadius: "8px",
-    };
-  } else if (last) {
-    return {
-      borderTopRightRadius: "8px",
-      borderBottomRightRadius: "8px",
-    };
-  } else {
-    return;
-  }
-};
-
-const StyledTableCell = styled(TableCell, {
-  shouldForwardProp: (prop) => prop !== "first" && prop !== "last",
-})(({ theme, first, last }) => ({
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.colors.body,
     color: theme.colors.grayTableText,
     textAlign: "center",
-    border: "none",
     padding: "14px 20px",
     boxSizing: "border-box",
+    border: 0,
     fontSize: 14,
     fontStyle: "normal",
     fontWeight: 500,
     lineHeight: "18px",
     fontFamily: "'IBM Plex Sans', sans-serif",
-    ...borderRadiusValidator(first, last),
+    "&:last-child": {
+      border: 0,
+      borderTopRightRadius: "8px",
+      borderBottomRightRadius: "8px",
+    },
+    "&:first-child": {
+      borderTopLeftRadius: "8px",
+      borderBottomLeftRadius: "8px",
+    },
   },
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,
@@ -51,13 +41,7 @@ export const TableHeader = ({ row = [] }) => {
     <TableHead sx={{ border: "none" }}>
       <TableRow>
         {row.map((title, i) => (
-          <StyledTableCell
-            key={title}
-            first={i === 0}
-            last={i === row.length - 1}
-          >
-            {title}
-          </StyledTableCell>
+          <StyledTableCell key={title}>{title}</StyledTableCell>
         ))}
       </TableRow>
     </TableHead>
