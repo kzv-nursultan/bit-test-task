@@ -1,9 +1,10 @@
 import { Box, Table, TableBody, styled, useTheme } from "@mui/material";
-import { TableHeader, Title } from "../../entities";
+import { TableHeader, Title, UsersListRow } from "../../entities";
 import { SearchBar } from "../../features";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { fetchUsers } from "./api/fetchUsers";
+import { UseDebounce } from "../../shared/hooks/useDebounce";
 
 const Container = styled(Box)(({ theme }) => ({
   borderRadius: 18,
@@ -23,21 +24,32 @@ export const TableContainer = () => {
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
   const [orderBy, setOrderBy] = useState("asc");
-  const { data, isLoading, error } = useQuery({
-    queryKey: ["usersList", page, search, orderBy],
+
+  const {
+    data: users,
+    isLoading,
+    error,
+    isError,
+  } = useQuery({
+    queryKey: ["usersList", page, UseDebounce(search), orderBy],
     queryFn: () => fetchUsers(page, search, orderBy),
   });
 
-  console.log(data);
+  const onSearchChange = (e) => setSearch(e.target.value);
+
   return (
     <Container>
       <Title title="Моя организация" wrapperProps={wrapperBorder(theme)} />
       <Title title="Пользователи" />
-      <SearchBar />
+      <SearchBar value={search} onChange={onSearchChange} />
       <Box sx={{ padding: "24px 34px" }}>
         <Table aria-label="users list table">
           <TableHeader row={tableHeader} />
-          <TableBody></TableBody>
+          <TableBody>
+            {users?.data.map((user) => (
+              <UsersListRow key={user.id} user={user} />
+            ))}
+          </TableBody>
         </Table>
       </Box>
     </Container>

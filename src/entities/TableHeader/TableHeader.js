@@ -38,7 +38,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 
 export const TableHeader = ({ row = [""] }) => {
   return (
-    <TableHead sx={{ border: "none" }}>
+    <TableHead>
       <TableRow>
         {row.map((title) => (
           <StyledTableCell key={title}>{title}</StyledTableCell>

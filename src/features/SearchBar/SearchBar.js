@@ -1,4 +1,5 @@
 import { Box, InputAdornment, TextField, styled } from "@mui/material";
+import PropTypes from "prop-types";
 import { Magnifier } from "../../shared/ui";
 
 const Container = styled(Box)(() => ({
@@ -36,7 +37,7 @@ const StyledInput = styled(TextField)(({ theme }) => ({
   },
 }));
 
-export const SearchBar = () => {
+export const SearchBar = ({ value = "", onChange }) => {
   return (
     <Container>
       <StyledInput
@@ -49,7 +50,14 @@ export const SearchBar = () => {
             </InputAdornment>
           ),
         }}
+        value={value}
+        onChange={onChange}
       />
     </Container>
   );
+};
+
+SearchBar.propTypes = {
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
 };
