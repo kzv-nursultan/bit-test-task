@@ -1,7 +1,7 @@
 import { Box, Table, TableBody, styled, useTheme } from "@mui/material";
 import { TableHeader, Title, UsersListRow } from "../../entities";
 import { SearchBar } from "../../features";
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { fetchUsers } from "./api/fetchUsers";
 import { UseDebounce } from "../../shared/hooks/useDebounce";
@@ -22,18 +22,14 @@ const tableHeader = ["Email", "Имя", "Роль", "Подписка", "Ток�
 
 export const TableContainer = () => {
   const theme = useTheme();
-  const [page, setPage] = useState(1);
+  const [page] = useState(1);
   const [search, setSearch] = useState("");
-  const [orderBy, setOrderBy] = useState(TOKENS_ORDER.asc);
+  const [orderBy, setOrderBy] = useState(TOKENS_ORDER.desc);
 
-  const {
-    data: users,
-    isLoading,
-    error,
-    isError,
-  } = useQuery({
+  const { data: users } = useQuery({
     queryKey: ["usersList", page, UseDebounce(search), orderBy],
     queryFn: () => fetchUsers(page, search, orderBy),
+    placeholderData: keepPreviousData,
   });
 
   const onSearchChange = (e) => setSearch(e.target.value);

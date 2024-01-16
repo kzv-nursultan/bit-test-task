@@ -3,9 +3,9 @@ import TableRow from "@mui/material/TableRow";
 import { styled } from "@mui/material/styles";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import PropTypes from "prop-types";
-import IconButton from "@mui/material/IconButton";
 import { Arrow } from "../../shared/ui";
 import { TOKENS_ORDER } from "../../shared/consts/enums";
+import Button from "@mui/material/Button";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -39,11 +39,20 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   },
 }));
 
-const StyledBtn = styled(IconButton, {
+const StyledBtn = styled(Button, {
   shouldForwardProp: (prop) => prop !== "order",
-})(({ order }) => ({
+})(({ theme, order }) => ({
   padding: 0,
-  transform: order === TOKENS_ORDER.asc ? "rotate(180deg)" : "rotate(0)",
+  fontSize: 14,
+  fontStyle: "normal",
+  fontWeight: 500,
+  lineHeight: "18px",
+  fontFamily: "'IBM Plex Sans', sans-serif",
+  textTransform: "capitalize",
+  color: theme.colors.grayTableText,
+  "& .MuiButton-endIcon": {
+    transform: order === TOKENS_ORDER.asc ? "rotate(180deg)" : "rotate(0)",
+  },
 }));
 
 export const TableHeader = ({ row = [""], setOrder, order }) => {
@@ -52,11 +61,12 @@ export const TableHeader = ({ row = [""], setOrder, order }) => {
       <TableRow>
         {row.map((title) => (
           <StyledTableCell key={title}>
-            {title}{" "}
-            {title === "Токены" && (
-              <StyledBtn sx={{ padding: 0 }} onClick={setOrder} order={order}>
-                <Arrow />
+            {title === "Токены" ? (
+              <StyledBtn onClick={setOrder} endIcon={<Arrow />} order={order}>
+                {title}
               </StyledBtn>
+            ) : (
+              title
             )}
           </StyledTableCell>
         ))}
