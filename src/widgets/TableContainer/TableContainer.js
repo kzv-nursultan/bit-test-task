@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { fetchUsers } from "./api/fetchUsers";
 import { UseDebounce } from "../../shared/hooks/useDebounce";
+import { TOKENS_ORDER } from "../../shared/consts/enums";
 
 const Container = styled(Box)(({ theme }) => ({
   borderRadius: 18,
@@ -23,7 +24,7 @@ export const TableContainer = () => {
   const theme = useTheme();
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
-  const [orderBy, setOrderBy] = useState("asc");
+  const [orderBy, setOrderBy] = useState(TOKENS_ORDER.asc);
 
   const {
     data: users,
@@ -36,6 +37,10 @@ export const TableContainer = () => {
   });
 
   const onSearchChange = (e) => setSearch(e.target.value);
+  const changeSortOrder = () =>
+    setOrderBy((prev) =>
+      prev === TOKENS_ORDER.asc ? TOKENS_ORDER.desc : TOKENS_ORDER.asc
+    );
 
   return (
     <Container>
@@ -44,7 +49,11 @@ export const TableContainer = () => {
       <SearchBar value={search} onChange={onSearchChange} />
       <Box sx={{ padding: "24px 34px" }}>
         <Table aria-label="users list table">
-          <TableHeader row={tableHeader} />
+          <TableHeader
+            row={tableHeader}
+            setOrder={changeSortOrder}
+            order={orderBy}
+          />
           <TableBody>
             {users?.data.map((user) => (
               <UsersListRow key={user.id} user={user} />

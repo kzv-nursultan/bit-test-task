@@ -3,8 +3,9 @@ import TableRow from "@mui/material/TableRow";
 import { styled } from "@mui/material/styles";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import PropTypes from "prop-types";
-import { IconButton } from "@mui/material";
+import IconButton from "@mui/material/IconButton";
 import { Arrow } from "../../shared/ui";
+import { TOKENS_ORDER } from "../../shared/consts/enums";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -38,7 +39,14 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   },
 }));
 
-export const TableHeader = ({ row = [""] }) => {
+const StyledBtn = styled(IconButton, {
+  shouldForwardProp: (prop) => prop !== "order",
+})(({ order }) => ({
+  padding: 0,
+  transform: order === TOKENS_ORDER.asc ? "rotate(180deg)" : "rotate(0)",
+}));
+
+export const TableHeader = ({ row = [""], setOrder, order }) => {
   return (
     <TableHead>
       <TableRow>
@@ -46,9 +54,9 @@ export const TableHeader = ({ row = [""] }) => {
           <StyledTableCell key={title}>
             {title}{" "}
             {title === "Токены" && (
-              <IconButton sx={{ padding: 0 }}>
+              <StyledBtn sx={{ padding: 0 }} onClick={setOrder} order={order}>
                 <Arrow />
-              </IconButton>
+              </StyledBtn>
             )}
           </StyledTableCell>
         ))}
@@ -59,4 +67,6 @@ export const TableHeader = ({ row = [""] }) => {
 
 TableHeader.propTypes = {
   row: PropTypes.arrayOf(PropTypes.string).isRequired,
+  setOrder: PropTypes.func.isRequired,
+  order: PropTypes.string.isRequired,
 };
