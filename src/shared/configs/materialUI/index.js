@@ -6,6 +6,7 @@ export const theme = createTheme({
     baseBg: "#121825",
     grayBorder: "#222B44",
     grayText: "#616D8D",
+    grayTableText: "#9CA3AF",
   },
   components: {
     MuiTypography: {

@@ -16,6 +16,10 @@ const StyledInput = styled(TextField)(({ theme }) => ({
     fontStyle: "normal",
     fontWeight: 400,
     lineHeight: "18px",
+    "&:-webkit-autofill": {
+      WebkitTextFillColor: "#FFFF",
+      WebkitBackgroundClip: "transparent",
+    },
   },
   "& .MuiOutlinedInput-root": {
     paddingLeft: 16,

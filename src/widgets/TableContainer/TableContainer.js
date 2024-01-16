@@ -1,5 +1,5 @@
-import { Box, styled, useTheme } from "@mui/material";
-import { Title } from "../../entities";
+import { Box, Table, styled, useTheme } from "@mui/material";
+import { TableHeader, Title } from "../../entities";
 import { SearchBar } from "../../features";
 
 const Container = styled(Box)(({ theme }) => ({
@@ -7,20 +7,26 @@ const Container = styled(Box)(({ theme }) => ({
   backgroundColor: theme.colors.baseBg,
 }));
 
+const wrapperBorder = (theme) => ({
+  sx: {
+    borderBottom: `1px solid ${theme.colors.grayBorder}`,
+  },
+});
+
+const tableHeader = ["Email", "Имя", "Роль", "Подписка", "Токены", "Действия"];
+
 export const TableContainer = () => {
   const theme = useTheme();
   return (
     <Container>
-      <Title
-        title="Моя организация"
-        wrapperProps={{
-          sx: {
-            borderBottom: `1px solid ${theme.colors.grayBorder}`,
-          },
-        }}
-      />
+      <Title title="Моя организация" wrapperProps={wrapperBorder(theme)} />
       <Title title="Пользователи" />
       <SearchBar />
+      <Box sx={{ padding: "24px 34px" }}>
+        <Table aria-label="users list table">
+          <TableHeader row={tableHeader} />
+        </Table>
+      </Box>
     </Container>
   );
 };
