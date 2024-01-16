@@ -22,7 +22,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
       borderTopRightRadius: "8px",
       borderBottomRightRadius: "8px",
     },
-    "&:first-child": {
+    "&:first-of-type": {
       borderTopLeftRadius: "8px",
       borderBottomLeftRadius: "8px",
     },
@@ -36,11 +36,11 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   },
 }));
 
-export const TableHeader = ({ row = [] }) => {
+export const TableHeader = ({ row = [""] }) => {
   return (
     <TableHead sx={{ border: "none" }}>
       <TableRow>
-        {row.map((title, i) => (
+        {row.map((title) => (
           <StyledTableCell key={title}>{title}</StyledTableCell>
         ))}
       </TableRow>
@@ -48,6 +48,6 @@ export const TableHeader = ({ row = [] }) => {
   );
 };
 
-TableCell.propTypes = {
+TableHeader.propTypes = {
   row: PropTypes.arrayOf(PropTypes.string).isRequired,
 };

@@ -23,12 +23,12 @@ export const TableContainer = () => {
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
   const [orderBy, setOrderBy] = useState("asc");
-  const query = useQuery({
+  const { data, isLoading, error } = useQuery({
     queryKey: ["usersList", page, search, orderBy],
     queryFn: () => fetchUsers(page, search, orderBy),
   });
 
-  console.log(query);
+  console.log(data);
   return (
     <Container>
       <Title title="Моя организация" wrapperProps={wrapperBorder(theme)} />
@@ -37,9 +37,7 @@ export const TableContainer = () => {
       <Box sx={{ padding: "24px 34px" }}>
         <Table aria-label="users list table">
           <TableHeader row={tableHeader} />
-          <TableBody>
-
-          </TableBody>
+          <TableBody></TableBody>
         </Table>
       </Box>
     </Container>

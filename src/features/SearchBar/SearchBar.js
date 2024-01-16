@@ -18,8 +18,7 @@ const StyledInput = styled(TextField)(({ theme }) => ({
     lineHeight: "18px",
     "&:-webkit-autofill": {
       WebkitTextFillColor: "#FFFF",
-      WebkitBackgroundClip: "border-box",
-      WebkitBackgroundColor: theme.colors.baseBg,
+      WebkitBackgroundClip: "text",
     },
   },
   "& .MuiOutlinedInput-root": {
