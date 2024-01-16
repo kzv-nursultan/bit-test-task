@@ -3,8 +3,10 @@ import PropTypes from "prop-types";
 import TableRow from "@mui/material/TableRow";
 import { styled } from "@mui/material/styles";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
+import { IconButton, Stack } from "@mui/material";
+import { Bin, Edit } from "../../shared/ui";
 
-const StyledTableCell = styled(TableCell)(({theme}) => ({
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,
     fontStyle: "normal",
@@ -18,6 +20,10 @@ const StyledTableCell = styled(TableCell)(({theme}) => ({
   },
 }));
 
+const StyledBtn = styled(IconButton)(() => ({
+  padding: 0,
+}));
+
 export const UsersListRow = ({ user }) => {
   const { email, name, role, subscription } = user;
   console.log(user);
@@ -28,7 +34,21 @@ export const UsersListRow = ({ user }) => {
       <StyledTableCell>{role}</StyledTableCell>
       <StyledTableCell>{subscription?.plan?.type || ""}</StyledTableCell>
       <StyledTableCell>{subscription?.tokens || 0}</StyledTableCell>
-      <StyledTableCell></StyledTableCell>
+      <StyledTableCell>
+        <Stack
+          direction="row"
+          justifyContent="center"
+          gap="10px"
+          alignItems="center"
+        >
+          <StyledBtn>
+            <Edit />
+          </StyledBtn>
+          <StyledBtn>
+            <Bin />
+          </StyledBtn>
+        </Stack>
+      </StyledTableCell>
     </TableRow>
   );
 };

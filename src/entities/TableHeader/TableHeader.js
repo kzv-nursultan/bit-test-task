@@ -3,6 +3,8 @@ import TableRow from "@mui/material/TableRow";
 import { styled } from "@mui/material/styles";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import PropTypes from "prop-types";
+import { IconButton } from "@mui/material";
+import { Arrow } from "../../shared/ui";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -41,7 +43,14 @@ export const TableHeader = ({ row = [""] }) => {
     <TableHead>
       <TableRow>
         {row.map((title) => (
-          <StyledTableCell key={title}>{title}</StyledTableCell>
+          <StyledTableCell key={title}>
+            {title}{" "}
+            {title === "Токены" && (
+              <IconButton sx={{ padding: 0 }}>
+                <Arrow />
+              </IconButton>
+            )}
+          </StyledTableCell>
         ))}
       </TableRow>
     </TableHead>
