@@ -56,11 +56,13 @@ const StyledBtn = styled(Button, {
   },
 }));
 
-export const TableHeader = ({ row = [""], setOrder, order }) => {
+const tableHeader = ["Email", "Имя", "Роль", "Подписка", "Токены", "Действия"];
+
+export const UserListTableHeader = ({ setOrder, order }) => {
   return (
     <TableHead>
       <TableRow>
-        {row.map((title) => (
+        {tableHeader.map((title) => (
           <StyledTableCell key={title}>
             {title === "Токены" ? (
               <StyledBtn onClick={setOrder} endIcon={<Arrow />} order={order}>
@@ -76,8 +78,7 @@ export const TableHeader = ({ row = [""], setOrder, order }) => {
   );
 };
 
-TableHeader.propTypes = {
-  row: PropTypes.arrayOf(PropTypes.string).isRequired,
+UserListTableHeader.propTypes = {
   setOrder: PropTypes.func.isRequired,
   order: PropTypes.string.isRequired,
 };

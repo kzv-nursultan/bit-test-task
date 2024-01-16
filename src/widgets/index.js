@@ -1,3 +1,3 @@
 export { Header } from "./Header/Header";
 export { Layout } from "./Layout/Layout";
-export { TableContainer } from "./TableContainer/TableContainer";
+export { UsersListTable } from "./UsersListTable/UsersListTable";

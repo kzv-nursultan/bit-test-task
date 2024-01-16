@@ -1,8 +1,8 @@
-import { Header, Layout, TableContainer } from "../../widgets";
+import { Header, Layout, UsersListTable } from "../../widgets";
 
 export const UsersList = () => (
   <Layout>
     <Header />
-    <TableContainer />
+    <UsersListTable />
   </Layout>
 );
