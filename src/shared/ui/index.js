@@ -4,3 +4,4 @@ export { Magnifier } from "./icons/magnifier";
 export { Arrow } from "./icons/arrow";
 export { Bin } from "./icons/bin";
 export { Edit } from "./icons/edit";
+export { default as RightSideDrawer } from "./components/RightSideDrawer";

@@ -1,10 +1,12 @@
-import React from "react";
+import React, { Suspense, lazy, useState } from "react";
 import PropTypes from "prop-types";
 import TableRow from "@mui/material/TableRow";
 import { styled } from "@mui/material/styles";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import { IconButton, Stack } from "@mui/material";
 import { Bin, Edit } from "../../shared/ui";
+
+const Drawer = lazy(() => import("../../shared/ui/components/RightSideDrawer"));
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.body}`]: {
@@ -26,8 +28,15 @@ const StyledBtn = styled(IconButton)(() => ({
 
 export const UsersListRow = ({ user }) => {
   const { email, name, role, subscription } = user;
+  const [open, setOpen] = useState(false);
+
+  const modalHandler = (e) => {
+    e.stopPropagation();
+    setOpen((prev) => !prev);
+  };
+
   return (
-    <TableRow>
+    <TableRow onClick={modalHandler}>
       <StyledTableCell>{email}</StyledTableCell>
       <StyledTableCell>{name}</StyledTableCell>
       <StyledTableCell>{role}</StyledTableCell>
@@ -48,6 +57,11 @@ export const UsersListRow = ({ user }) => {
           </StyledBtn>
         </Stack>
       </StyledTableCell>
+      <Suspense>
+        <Drawer open={open} onClose={modalHandler}>
+          <div>child</div>
+        </Drawer>
+      </Suspense>
     </TableRow>
   );
 };
