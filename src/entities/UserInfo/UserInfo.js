@@ -10,6 +10,9 @@ const Container = styled(Box)(({ theme }) => ({
   gap: 14,
   padding: "8px 14px",
   boxSizing: "border-box",
+  [theme.breakpoints.down("sm")]: {
+    display: "none",
+  },
 }));
 
 const Authorized = styled(Typography)(({ theme }) => ({

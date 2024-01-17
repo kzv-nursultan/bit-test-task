@@ -12,6 +12,7 @@ import { UseDebounce } from "../../shared/hooks/useDebounce";
 import { TOKENS_ORDER } from "../../shared/consts/enums";
 import { Arrow } from "../../shared/ui";
 import { Container, StyledPagination } from "./ui/styled";
+import styled from "@emotion/styled";
 
 const paginationArrow =
   (rotate = "rotate(-90deg)") =>
@@ -27,6 +28,32 @@ const wrapperBorder = (theme) => ({
     borderBottom: `1px solid ${theme.colors.grayBorder}`,
   },
 });
+
+const setPaddings = (theme) => ({
+  sx: {
+    padding: "29px 34px 24px",
+    [theme.breakpoints.down("md")]: {
+      padding: "29px 24px 27px",
+    },
+    [theme.breakpoints.down("sm")]: {
+      padding: "26px 16px",
+    },
+  },
+});
+
+const TableWrapper = styled(Box)(({ theme }) => ({
+  padding: "24px 34px",
+  [theme.breakpoints.down("md")]: {
+    width: "100%",
+    display: "table",
+    tableLayout: "fixed",
+    boxSizing: "borderBox",
+    padding: "18px 24px",
+  },
+  [theme.breakpoints.down("sm")]: {
+    padding: "18px 16px",
+  },
+}));
 
 export const UsersListTable = () => {
   const theme = useTheme();
@@ -52,35 +79,37 @@ export const UsersListTable = () => {
   return (
     <Container>
       <Title title="Моя организация" wrapperProps={wrapperBorder(theme)} />
-      <Title title="Пользователи" />
+      <Title title="Пользователи" wrapperProps={setPaddings(theme)} />
       <SearchBar value={search} onChange={onSearchChange} />
-      <Box sx={{ padding: "24px 34px" }}>
-        <Table aria-label="users list table">
-          <UserListTableHeader setOrder={changeSortOrder} order={orderBy} />
-          <TableBody>
-            {users?.data.map((user) => (
-              <UsersListRow key={user.id} user={user} />
-            ))}
-          </TableBody>
-        </Table>
-        <Box m="24px 34px">
-          <StyledPagination
-            count={users?.pages}
-            page={page}
-            onChange={onPaginationChange}
-            variant="outlined"
-            shape="rounded"
-            renderItem={(item) => (
-              <PaginationItem
-                slots={{
-                  previous: paginationArrow("rotate(90deg)"),
-                  next: paginationArrow(),
-                }}
-                {...item}
-              />
-            )}
-          />
-        </Box>
+      <Box sx={{ overflow: "auto" }}>
+        <TableWrapper>
+          <Table aria-label="users list table">
+            <UserListTableHeader setOrder={changeSortOrder} order={orderBy} />
+            <TableBody>
+              {users?.data.map((user) => (
+                <UsersListRow key={user.id} user={user} />
+              ))}
+            </TableBody>
+          </Table>
+          <Box m="24px 34px">
+            <StyledPagination
+              count={users?.pages}
+              page={page}
+              onChange={onPaginationChange}
+              variant="outlined"
+              shape="rounded"
+              renderItem={(item) => (
+                <PaginationItem
+                  slots={{
+                    previous: paginationArrow("rotate(90deg)"),
+                    next: paginationArrow(),
+                  }}
+                  {...item}
+                />
+              )}
+            />
+          </Box>
+        </TableWrapper>
       </Box>
     </Container>
   );

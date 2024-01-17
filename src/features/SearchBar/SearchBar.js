@@ -2,8 +2,14 @@ import { Box, InputAdornment, TextField, styled } from "@mui/material";
 import PropTypes from "prop-types";
 import { Magnifier } from "../../shared/ui";
 
-const Container = styled(Box)(() => ({
+const Container = styled(Box)(({ theme }) => ({
   padding: "0 34px",
+  [theme.breakpoints.down("md")]: {
+    padding: "0 24px",
+  },
+  [theme.breakpoints.down("sm")]: {
+    padding: "0 16px",
+  },
 }));
 
 const StyledInput = styled(TextField)(({ theme }) => ({

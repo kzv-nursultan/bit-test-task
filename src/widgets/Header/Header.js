@@ -13,16 +13,29 @@ const FlexContainer = styled(Stack)(() => ({
   flexDirection: "row",
   alignItems: "center",
   gap: 44,
+  justifyContent: "space-between",
+  flexWrap: "wrap",
+}));
+
+const InnerFlexContainer = styled(Stack)(({ theme }) => ({
+  flexDirection: "row",
+  alignItems: "center",
+  gap: 44,
+  [theme.breakpoints.down("sm")]: {
+    width: "100%",
+    justifyContent: "space-between",
+    gap: 0,
+  },
 }));
 
 export const Header = () => {
   return (
     <Container>
-      <FlexContainer justifyContent="space-between">
-        <FlexContainer>
+      <FlexContainer justifyContent="space-between" sx={{ flexWrap: "wrap" }}>
+        <InnerFlexContainer>
           <Logo />
           <CompanyName />
-        </FlexContainer>
+        </InnerFlexContainer>
         <UserInfo />
       </FlexContainer>
     </Container>

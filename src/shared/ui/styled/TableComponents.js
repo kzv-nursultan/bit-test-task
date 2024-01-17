@@ -23,6 +23,9 @@ export const StyledHeadCell = styled(TableCell)(({ theme }) => ({
       borderTopLeftRadius: "8px",
       borderBottomLeftRadius: "8px",
     },
+    [theme.breakpoints.down("md")]: {
+      fontSize: 12,
+    },
   },
 }));
 
@@ -37,5 +40,8 @@ export const StyledBodyCell = styled(TableCell)(({ theme }) => ({
     borderBottom: `1px solid ${theme.colors.grayBorder}`,
     padding: "14px 20px",
     textAlign: "center",
+    [theme.breakpoints.down("md")]: {
+      fontSize: 12,
+    },
   },
 }));
