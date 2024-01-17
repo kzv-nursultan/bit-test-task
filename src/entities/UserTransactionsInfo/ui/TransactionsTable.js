@@ -17,7 +17,7 @@ const HeadTitles = ["Тип", "Сумма", "Дата"];
 const transactionTypeValidator = (type, ifTrue, ifFalse) =>
   type === TRANSACTION_TYPE["REPLENISH"]["key"] ? ifTrue : ifFalse;
 
-const HeadCell = styled(StyledHeadCell)(() => ({
+const HeadCell = styled(StyledHeadCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     "&:last-child": {
       border: 0,
@@ -28,12 +28,22 @@ const HeadCell = styled(StyledHeadCell)(() => ({
       borderTopLeftRadius: "8px",
       borderBottomLeftRadius: 0,
     },
+    [theme.breakpoints.down("sm")]: {
+      padding: "14px",
+    },
+  },
+}));
+
+const BodyCell = styled(StyledBodyCell)(({ theme }) => ({
+  fontWeight: 500,
+  [theme.breakpoints.down("sm")]: {
+    padding: "14px",
   },
 }));
 
 const CurrencyAmount = styled(Typography, {
   shouldForwardProp: (prop) => prop !== "type",
-})(({ type }) => ({
+})(({ type, theme }) => ({
   fontSize: 14,
   fontStyle: "normal",
   fontWeight: 500,
@@ -41,6 +51,9 @@ const CurrencyAmount = styled(Typography, {
   fontFamily: "'IBM Plex Sans', sans-serif",
   color: transactionTypeValidator(type, "#1ABB34", "#FE4242"),
   textAlign: "center",
+  [theme.breakpoints.down("sm")]: {
+    fontSize: 12,
+  },
 }));
 
 export const TransactionsTable = ({ data = [] }) => {
@@ -56,18 +69,18 @@ export const TransactionsTable = ({ data = [] }) => {
       <TableBody>
         {data.map((obj) => (
           <TableRow>
-            <StyledBodyCell>{TRANSACTION_TYPE[obj.type].val}</StyledBodyCell>
-            <StyledBodyCell>
+            <BodyCell>{TRANSACTION_TYPE[obj.type].val}</BodyCell>
+            <BodyCell>
               <CurrencyAmount type={obj.type}>
                 {transactionTypeValidator(obj.type, "+", "-")}
                 {obj.amount} {obj.currency}
               </CurrencyAmount>
-            </StyledBodyCell>
-            <StyledBodyCell>
+            </BodyCell>
+            <BodyCell>
               {new Date(obj.created_at).toLocaleString("ru-RU", {
                 hour12: false,
               })}
-            </StyledBodyCell>
+            </BodyCell>
           </TableRow>
         ))}
       </TableBody>

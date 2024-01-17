@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 import Box from "@mui/material/Box";
 import { IconButton, Typography } from "@mui/material";
 import { Close, StackRow } from "../";
+import { useTheme } from "@emotion/react";
 
 const StyledDialog = styled(Dialog)(() => ({
   "& .MuiDialog-container": {
@@ -30,14 +31,18 @@ const CloseBtn = styled(IconButton)(() => ({
   justifyContent: "center",
 }));
 
-const HeaderTitle = styled(Typography)(() => ({
+const HeaderTitle = styled(Typography)(({ theme }) => ({
   fontSize: 20,
   fontStyle: "normal",
   fontWeight: 600,
   lineHeight: "26px",
+  [theme.breakpoints.down("sm")]: {
+    fontSize: 18,
+  },
 }));
 
 const RightSideDrawer = ({ open, onClose, children, title = "" }) => {
+  const theme = useTheme();
   return (
     <StyledDialog
       open={open}
@@ -53,6 +58,9 @@ const RightSideDrawer = ({ open, onClose, children, title = "" }) => {
           display: "flex",
           minHeight: "100%",
           backgroundColor: "#121825",
+          [theme.breakpoints.down("sm")]: {
+            padding: "30px 16px",
+          },
         },
       }}
     >
