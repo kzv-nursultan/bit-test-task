@@ -58,7 +58,7 @@ export const UsersListRow = ({ user }) => {
         </Stack>
       </StyledTableCell>
       <Suspense>
-        <Drawer open={open} onClose={modalHandler}>
+        <Drawer open={open} onClose={modalHandler} title={email}>
           <div>child</div>
         </Drawer>
       </Suspense>

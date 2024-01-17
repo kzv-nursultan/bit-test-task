@@ -2,6 +2,8 @@ import PropTypes from "prop-types";
 import Dialog from "@mui/material/Dialog";
 import styled from "@emotion/styled";
 import Box from "@mui/material/Box";
+import { IconButton, Typography } from "@mui/material";
+import { Close, StackRow } from "../";
 
 const StyledDialog = styled(Dialog)(() => ({
   "& .MuiDialog-container": {
@@ -18,9 +20,24 @@ const Container = styled(Box)({
   minHeight: "100%",
   boxSizing: "border-box",
   overflow: "unset",
+  gap: 20,
 });
 
-const RightSideDrawer = ({ open, onClose, children }) => {
+const CloseBtn = styled(IconButton)(() => ({
+  padding: 0,
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+}));
+
+const HeaderTitle = styled(Typography)(() => ({
+  fontSize: 20,
+  fontStyle: "normal",
+  fontWeight: 600,
+  lineHeight: "26px",
+}));
+
+const RightSideDrawer = ({ open, onClose, children, title = "" }) => {
   return (
     <StyledDialog
       open={open}
@@ -39,7 +56,15 @@ const RightSideDrawer = ({ open, onClose, children }) => {
         },
       }}
     >
-      <Container>{children}</Container>
+      <Container>
+        <StackRow>
+          <HeaderTitle>{title}</HeaderTitle>
+          <CloseBtn onClick={onClose}>
+            <Close />
+          </CloseBtn>
+        </StackRow>
+        {children}
+      </Container>
     </StyledDialog>
   );
 };
@@ -47,6 +72,7 @@ const RightSideDrawer = ({ open, onClose, children }) => {
 RightSideDrawer.propTypes = {
   open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
+  title: PropTypes.string,
   children: PropTypes.node.isRequired,
 };
 
