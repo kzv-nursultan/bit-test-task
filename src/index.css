@@ -2,10 +2,26 @@ body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #0E0C15;
+  background-color: #0e0c15;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+#canvas-chart > div > canvas:nth-child(2) {
+  background-color: #121825;
+}
+
+#canvas-chart > div > div.canvasjs-navigator-panel {
+  margin-top: 20px;
+}
+
+#canvas-chart > div > div.canvasjs-chart-panel > div > a {
+  display: none;
+}
+
+#canvas-chart > div > div.canvasjs-navigator-panel > div.canvasjs-chart-panel > div > a {
+  display: none;
 }

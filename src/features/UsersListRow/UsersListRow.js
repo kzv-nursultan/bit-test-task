@@ -5,7 +5,7 @@ import { styled } from "@mui/material/styles";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import { IconButton, Stack } from "@mui/material";
 import { Bin, Edit } from "../../shared/ui";
-import { UserInfo } from "..";
+import { UserTransactionsInfo } from "../../entities";
 
 const Drawer = lazy(() => import("../../shared/ui/components/RightSideDrawer"));
 
@@ -60,7 +60,7 @@ export const UsersListRow = ({ user }) => {
       </StyledTableCell>
       <Suspense>
         <Drawer open={open} onClose={modalHandler} title={email}>
-          <UserInfo id={id} />
+          <UserTransactionsInfo id={id} />
         </Drawer>
       </Suspense>
     </TableRow>
