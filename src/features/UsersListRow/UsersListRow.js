@@ -12,17 +12,26 @@ const StyledBtn = styled(IconButton)(() => ({
   padding: 0,
 }));
 
+const Row = styled(TableRow)(({ theme }) => ({
+  cursor: "pointer",
+  "&:hover": {
+    backgroundColor: theme.colors.grayBorder,
+  },
+}));
+
 export const UsersListRow = ({ user }) => {
   const { email, name, role, subscription, id } = user;
   const [open, setOpen] = useState(false);
 
-  const modalHandler = (e) => {
+  const openModal = () => setOpen(true);
+
+  const closeModal = (e) => {
     e.stopPropagation();
-    setOpen((prev) => !prev);
+    setOpen(false);
   };
 
   return (
-    <TableRow onClick={modalHandler}>
+    <Row onClick={openModal}>
       <StyledBodyCell>{email}</StyledBodyCell>
       <StyledBodyCell>{name}</StyledBodyCell>
       <StyledBodyCell>{role}</StyledBodyCell>
@@ -44,11 +53,11 @@ export const UsersListRow = ({ user }) => {
         </Stack>
       </StyledBodyCell>
       <Suspense>
-        <Drawer open={open} onClose={modalHandler} title={email}>
+        <Drawer open={open} onClose={closeModal} title={email}>
           <UserTransactionsInfo id={id} />
         </Drawer>
       </Suspense>
-    </TableRow>
+    </Row>
   );
 };
 

@@ -59,7 +59,7 @@ const RightSideDrawer = ({ open, onClose, children, title = "" }) => {
       <Container>
         <StackRow>
           <HeaderTitle>{title}</HeaderTitle>
-          <CloseBtn>
+          <CloseBtn onClick={onClose}>
             <Close />
           </CloseBtn>
         </StackRow>

@@ -22,7 +22,7 @@ export const UserTransactionsInfo = ({ id }) => {
   });
 
   return (
-    <Stack gap={"20px"}>
+    <Stack gap={"20px"} sx={{ overflowY: "scroll" }}>
       <Titles>Использование токенов</Titles>
       <Chart />
       <Titles mt="20px">История операций</Titles>
