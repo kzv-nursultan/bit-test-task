@@ -11,8 +11,3 @@ export const fetchUsers = async (page, search, orderBy) => {
   });
   return data;
 };
-
-export const fetchUserTransactions = async (id) => {
-  const { data } = await axios.get(API.userTransactions(id));
-  return data;
-};
