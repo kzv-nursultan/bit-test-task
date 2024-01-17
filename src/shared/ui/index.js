@@ -7,3 +7,4 @@ export { Edit } from "./icons/edit";
 export { Close } from "./icons/close";
 export { default as RightSideDrawer } from "./components/RightSideDrawer";
 export { StackRow } from "./styled/StackRow";
+export { StyledHeadCell, StyledBodyCell } from "./styled/TableComponents";

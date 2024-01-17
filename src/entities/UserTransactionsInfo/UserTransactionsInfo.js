@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 import styled from "@emotion/styled";
 import { Chart } from "./ui/Chart";
 
-const TokensUsage = styled(Typography)(() => ({
+const Titles = styled(Typography)(() => ({
   fontSize: 20,
   fontWeight: 600,
   lineHeight: "26px",
@@ -14,8 +14,9 @@ const TokensUsage = styled(Typography)(() => ({
 export const UserTransactionsInfo = ({ id }) => {
   return (
     <Stack gap={"20px"}>
-      <TokensUsage>Использование токенов</TokensUsage>
+      <Titles>Использование токенов</Titles>
       <Chart />
+      <Titles mt="20px">История операций</Titles>
     </Stack>
   );
 };

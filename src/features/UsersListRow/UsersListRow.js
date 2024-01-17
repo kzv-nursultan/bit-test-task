@@ -2,26 +2,11 @@ import React, { Suspense, lazy, useState } from "react";
 import PropTypes from "prop-types";
 import TableRow from "@mui/material/TableRow";
 import { styled } from "@mui/material/styles";
-import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import { IconButton, Stack } from "@mui/material";
-import { Bin, Edit } from "../../shared/ui";
+import { Bin, Edit, StyledBodyCell } from "../../shared/ui";
 import { UserTransactionsInfo } from "../../entities";
 
 const Drawer = lazy(() => import("../../shared/ui/components/RightSideDrawer"));
-
-const StyledTableCell = styled(TableCell)(({ theme }) => ({
-  [`&.${tableCellClasses.body}`]: {
-    fontSize: 14,
-    fontStyle: "normal",
-    fontWeight: 500,
-    lineHeight: "18px",
-    fontFamily: "'IBM Plex Sans', sans-serif",
-    color: "#FFF",
-    borderBottom: `1px solid ${theme.colors.grayBorder}`,
-    padding: "14px 20px",
-    textAlign: "center",
-  },
-}));
 
 const StyledBtn = styled(IconButton)(() => ({
   padding: 0,
@@ -38,12 +23,12 @@ export const UsersListRow = ({ user }) => {
 
   return (
     <TableRow onClick={modalHandler}>
-      <StyledTableCell>{email}</StyledTableCell>
-      <StyledTableCell>{name}</StyledTableCell>
-      <StyledTableCell>{role}</StyledTableCell>
-      <StyledTableCell>{subscription?.plan?.type || ""}</StyledTableCell>
-      <StyledTableCell>{subscription?.tokens || 0}</StyledTableCell>
-      <StyledTableCell>
+      <StyledBodyCell>{email}</StyledBodyCell>
+      <StyledBodyCell>{name}</StyledBodyCell>
+      <StyledBodyCell>{role}</StyledBodyCell>
+      <StyledBodyCell>{subscription?.plan?.type || ""}</StyledBodyCell>
+      <StyledBodyCell>{subscription?.tokens || 0}</StyledBodyCell>
+      <StyledBodyCell>
         <Stack
           direction="row"
           justifyContent="center"
@@ -57,7 +42,7 @@ export const UsersListRow = ({ user }) => {
             <Bin />
           </StyledBtn>
         </Stack>
-      </StyledTableCell>
+      </StyledBodyCell>
       <Suspense>
         <Drawer open={open} onClose={modalHandler} title={email}>
           <UserTransactionsInfo id={id} />
