@@ -3,8 +3,8 @@ import CanvasJSReact from "@canvasjs/react-stockcharts";
 const CanvasJSStockChart = CanvasJSReact?.CanvasJSStockChart;
 
 const containerProps = {
-  width: "100%",
-  height: "350px",
+  width: "351px",
+  height: "410px",
   margin: "auto 20px auto",
 };
 
