@@ -3,6 +3,8 @@ import useTheme from "@mui/material/styles/useTheme";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import PaginationItem from "@mui/material/PaginationItem";
+import Snackbar from "@mui/material/Snackbar";
+import Alert from "@mui/material/Alert";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { Title } from "../../entities";
 import { SearchBar, UserListTableHeader, UsersListRow } from "../../features";
@@ -13,6 +15,7 @@ import { TOKENS_ORDER } from "../../shared/consts/enums";
 import { Arrow } from "../../shared/ui";
 import { Container, StyledPagination } from "./ui/styled";
 import styled from "@emotion/styled";
+import { Typography } from "@mui/material";
 
 const paginationArrow =
   (rotate = "rotate(-90deg)") =>
@@ -61,13 +64,23 @@ export const UsersListTable = () => {
   const [orderBy, setOrderBy] = useState(TOKENS_ORDER.desc);
   const [page, setPage] = useState(1);
 
-  const { data: users } = useQuery({
+  const {
+    data: users,
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
     queryKey: ["usersList", page, UseDebounce(search), orderBy],
     queryFn: () => fetchUsers(page, search, orderBy),
     placeholderData: keepPreviousData,
   });
 
-  const onSearchChange = (e) => setSearch(e.target.value);
+  const onSearchChange = (e) => {
+    setSearch(e.target.value);
+    if (page !== 1) {
+      setTimeout(() => setPage(1), 600);
+    }
+  };
 
   const changeSortOrder = () =>
     setOrderBy((prev) =>
@@ -75,7 +88,6 @@ export const UsersListTable = () => {
     );
 
   const onPaginationChange = (_, value) => setPage(value);
-
   return (
     <Container>
       <Title title="Моя организация" wrapperProps={wrapperBorder(theme)} />
@@ -93,7 +105,7 @@ export const UsersListTable = () => {
           </Table>
         </TableWrapper>
       </Box>
-      {users?.data.length && (
+      {users?.data.length ? (
         <Box m="24px 0">
           <StyledPagination
             count={users?.pages}
@@ -113,7 +125,17 @@ export const UsersListTable = () => {
             )}
           />
         </Box>
+      ) : (
+        <TableWrapper>
+          <Typography>no data</Typography>
+        </TableWrapper>
       )}
+      <Snackbar open={isError}>
+        <Alert severity="error" variant="filled" sx={{ width: "100%" }}>
+          {error?.message}
+        </Alert>
+      </Snackbar>
+      <Snackbar open={isLoading} message="loading..." />
     </Container>
   );
 };
