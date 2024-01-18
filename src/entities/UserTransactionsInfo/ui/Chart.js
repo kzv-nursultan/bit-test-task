@@ -1,4 +1,6 @@
 import CanvasJSReact from "@canvasjs/react-stockcharts";
+import PropTypes from "prop-types";
+import { useMemo } from "react";
 
 const CanvasJSStockChart = CanvasJSReact?.CanvasJSStockChart;
 
@@ -16,70 +18,150 @@ const labelsFontStyles = {
   labelFontStyle: "normal",
 };
 
-export const Chart = () => {
-  const options = {
-    theme: "dark1",
-    animationEnabled: true,
-    exportEnabled: false,
-    handleBorderColor: "transparent",
-    colorSet: ["#121825"],
-    charts: [
-      {
-        backgroundColor: "#121825",
-        axisX: { ...labelsFontStyles, tickLength: 0, lineColor: "transparent" },
-        axisY2: {
-          ...labelsFontStyles,
-          gridColor: "#222B44",
-          tickLength: 0,
-          lineColor: "transparent",
-        },
-        data: [
-          {
-            lineColor: "#1C64F2",
-            type: "line",
-            axisYType: "secondary",
-            highlightEnabled: false,
-            markerSize: 0,
-            dataPoints: [
-              { x: new Date("2018-01-01"), y: 71 },
-              { x: new Date("2018-02-01"), y: 55 },
-              { x: new Date("2018-03-01"), y: 50 },
-              { x: new Date("2018-04-01"), y: 65 },
-              { x: new Date("2018-05-01"), y: 95 },
-              { x: new Date("2018-06-01"), y: 68 },
-              { x: new Date("2018-07-01"), y: 28 },
-            ],
-          },
-        ],
-      },
-    ],
-    navigator: {
-      enabled: true,
-      height: 24,
+const dataAdapter = (data) =>
+  data.map((obj) => ({
+    x: new Date(obj.created_at),
+    y: obj.amount,
+  }));
+
+const optionsCreator = (data, email) => ({
+  theme: "dark1",
+  animationEnabled: true,
+  exportEnabled: false,
+  handleBorderColor: "transparent",
+  colorSet: ["#121825"],
+  legend: {
+    enabled: true,
+    horizontalAlign: "center",
+    verticalAlign: "bottom",
+    fontSize: 15,
+  },
+  charts: [
+    {
       backgroundColor: "#121825",
-      axisX: {
+      axisX: { ...labelsFontStyles, tickLength: 0, lineColor: "transparent" },
+      axisY2: {
         ...labelsFontStyles,
+        gridColor: "#222B44",
         tickLength: 0,
         lineColor: "transparent",
-        labelPlacement: "inside",
       },
-      axisY: {
-        lineColor: "#222B44",
-        tickLength: 0,
-        labelPlacement: "inside",
-      },
-      slider: {
-        outlineColor: "#222B44",
-        maskColor: "#222B44",
-        handleColor: "#1C64F2",
-        handleBorderColor: "transparent",
-      },
+      data: [
+        {
+          lineColor: "#1C64F2",
+          type: "line",
+          axisYType: "secondary",
+          highlightEnabled: false,
+          markerSize: 0,
+          legendMarkerType: "square",
+          showInLegend: true,
+          legendText: email,
+          dataPoints: data,
+        },
+      ],
     },
-    rangeSelector: {
-      enabled: false,
+  ],
+  navigator: {
+    enabled: true,
+    height: 24,
+    backgroundColor: "#121825",
+    axisX: {
+      ...labelsFontStyles,
+      tickLength: 0,
+      lineColor: "transparent",
+      labelPlacement: "inside",
     },
-  };
+    axisY: {
+      lineColor: "#222B44",
+      tickLength: 0,
+      labelPlacement: "inside",
+    },
+    slider: {
+      outlineColor: "#222B44",
+      maskColor: "#222B44",
+      handleColor: "#1C64F2",
+      handleBorderColor: "transparent",
+      minimum: new Date(Date.now()),
+    },
+  },
+  rangeSelector: {
+    enabled: false,
+  },
+});
+
+export const Chart = ({ data, email }) => {
+  const memoData = useMemo(() => dataAdapter(data), [data]);
+  //   theme: "dark1",
+  //   animationEnabled: true,
+  //   exportEnabled: false,
+  //   handleBorderColor: "transparent",
+  //   colorSet: ["#121825"],
+  //   legend: {
+  //     enabled: true,
+  //     horizontalAlign: "center",
+  //     verticalAlign: "bottom",
+  //     fontSize: 15,
+  //   },
+  //   charts: [
+  //     {
+  //       backgroundColor: "#121825",
+  //       axisX: { ...labelsFontStyles, tickLength: 0, lineColor: "transparent" },
+  //       axisY2: {
+  //         ...labelsFontStyles,
+  //         gridColor: "#222B44",
+  //         tickLength: 0,
+  //         lineColor: "transparent",
+  //       },
+  //       data: [
+  //         {
+  //           lineColor: "#1C64F2",
+  //           type: "line",
+  //           axisYType: "secondary",
+  //           highlightEnabled: false,
+  //           markerSize: 0,
+  //           legendText: email,
+  //           dataPoints: memoData,
+  //         },
+  //       ],
+  //     },
+  //   ],
+  //   navigator: {
+  //     enabled: true,
+  //     height: 24,
+  //     backgroundColor: "#121825",
+  //     axisX: {
+  //       ...labelsFontStyles,
+  //       tickLength: 0,
+  //       lineColor: "transparent",
+  //       labelPlacement: "inside",
+  //     },
+  //     axisY: {
+  //       lineColor: "#222B44",
+  //       tickLength: 0,
+  //       labelPlacement: "inside",
+  //     },
+  //     slider: {
+  //       outlineColor: "#222B44",
+  //       maskColor: "#222B44",
+  //       handleColor: "#1C64F2",
+  //       handleBorderColor: "transparent",
+  //     },
+  //   },
+  //   rangeSelector: {
+  //     enabled: false,
+  //   },
+  // };
+
   return (
-    <CanvasJSStockChart id="canvas-chart" containerProps={containerProps} options={options} />
+    <CanvasJSStockChart
+      id="canvas-chart"
+      containerProps={containerProps}
+      options={optionsCreator(memoData, email)}
+    />
   );
+};
+
+Chart.propTypes = {
+  data: PropTypes.array.isRequired,
+  email: PropTypes.string.isRequired,
 };

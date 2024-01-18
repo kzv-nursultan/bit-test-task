@@ -93,25 +93,27 @@ export const UsersListTable = () => {
           </Table>
         </TableWrapper>
       </Box>
-      <Box m="24px 0">
-        <StyledPagination
-          count={users?.pages}
-          page={page}
-          onChange={onPaginationChange}
-          siblingCount={0}
-          variant="outlined"
-          shape="rounded"
-          renderItem={(item) => (
-            <PaginationItem
-              slots={{
-                previous: paginationArrow("rotate(90deg)"),
-                next: paginationArrow(),
-              }}
-              {...item}
-            />
-          )}
-        />
-      </Box>
+      {users?.data.length && (
+        <Box m="24px 0">
+          <StyledPagination
+            count={users?.pages}
+            page={page}
+            onChange={onPaginationChange}
+            siblingCount={0}
+            variant="outlined"
+            shape="rounded"
+            renderItem={(item) => (
+              <PaginationItem
+                slots={{
+                  previous: paginationArrow("rotate(90deg)"),
+                  next: paginationArrow(),
+                }}
+                {...item}
+              />
+            )}
+          />
+        </Box>
+      )}
     </Container>
   );
 };

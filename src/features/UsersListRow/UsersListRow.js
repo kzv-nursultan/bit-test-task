@@ -36,7 +36,7 @@ export const UsersListRow = ({ user }) => {
       <StyledBodyCell>{name}</StyledBodyCell>
       <StyledBodyCell>{role}</StyledBodyCell>
       <StyledBodyCell>{subscription?.plan?.type || ""}</StyledBodyCell>
-      <StyledBodyCell>{subscription?.tokens || 0}</StyledBodyCell>
+      <StyledBodyCell>{subscription?.tokens || 0} TKN</StyledBodyCell>
       <StyledBodyCell>
         <Stack
           direction="row"
@@ -54,7 +54,7 @@ export const UsersListRow = ({ user }) => {
       </StyledBodyCell>
       <Suspense>
         <Drawer open={open} onClose={closeModal} title={email}>
-          <UserTransactionsInfo id={id} />
+          <UserTransactionsInfo id={id} email={email || ""} />
         </Drawer>
       </Suspense>
     </Row>

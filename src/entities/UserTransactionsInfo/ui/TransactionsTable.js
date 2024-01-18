@@ -68,7 +68,7 @@ export const TransactionsTable = ({ data = [] }) => {
       </TableHead>
       <TableBody>
         {data.map((obj) => (
-          <TableRow>
+          <TableRow key={obj.id}>
             <BodyCell>{TRANSACTION_TYPE[obj.type].val}</BodyCell>
             <BodyCell>
               <CurrencyAmount type={obj.type}>

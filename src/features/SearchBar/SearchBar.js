@@ -47,6 +47,7 @@ export const SearchBar = ({ value = "", onChange }) => {
   return (
     <Container>
       <StyledInput
+        id="searchInput"
         fullWidth
         placeholder="Поиск"
         InputProps={{
